@@ -1,0 +1,25 @@
+{
+  "tasks": [
+    {
+      "id": "2",
+      "title": "Gửi email khách hàng",
+      "due_date": "2025-03-28",
+      "priority": "Trung bình",
+      "status": "Hoàn thành"
+    },
+    {
+      "id": "3",
+      "title": "Chuẩn bị thuyết trình",
+      "due_date": "2025-04-05",
+      "priority": "Cao",
+      "status": "Đang thực hiện"
+    },
+    {
+      "id": "4",
+      "title": "Họp nhóm dự án",
+      "due_date": "2025-03-30",
+      "priority": "Thấp",
+      "status": "Chưa hoàn thành"
+    }
+  ]
+}
