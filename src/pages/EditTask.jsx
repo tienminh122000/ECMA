@@ -1,13 +1,53 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect } from "react";
+import { useForm } from "react-hook-form";
+import { useNavigate, useParams } from "react-router-dom";
 
 const EditTask = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm();
+  const navigate = useNavigate();
+  const onErrors = (errors) => {
+    console.log(errors);
+  };
+  const onValid = (data) => {
+    axios
+      .put(`http://localhost:3000/tasks/${id}`, data)
+      .then(() => {
+        alert("Sửa nhiệm vụ thành công");
+        navigate("/");
+      })
+      .catch((errors) => {
+        console.error(errors);
+      });
+  };
+  const { id } = useParams();
+
+  useEffect(() => {
+    axios
+      .get(`http://localhost:3000/tasks/${id}`)
+      .then((res) => {
+        reset(res.data);
+      })
+      .catch((errors) => {
+        console.log(errors);
+      });
+  }, []);
   return (
     <div>
       <div className="max-w-2xl mx-auto mt-12 p-8 bg-white rounded-lg shadow-xl">
         <h1 className="text-3xl font-bold text-center text-gray-800 mb-6">
           Sửa thông tin nhiệm vụ
         </h1>
-        <form action="#" method="POST">
+        <form
+          action="#"
+          method="POST"
+          onSubmit={handleSubmit(onValid, onErrors)}
+        >
           <div className="space-y-6">
             {/* Tên Nhiệm Vụ */}
             <div>
@@ -23,8 +63,17 @@ const EditTask = () => {
                 name="taskName"
                 className="w-full mt-2 p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                 placeholder="Nhập tên nhiệm vụ"
-                required
+                {...register("title", {
+                  required: "Không được bỏ trống form",
+                  minLength: {
+                    value: 5,
+                    message: "Độ dài không được dưới 5 kí tự",
+                  },
+                })}
               />
+              {errors.title && (
+                <div style={{ color: "red" }}>{errors.title.message}</div>
+              )}
             </div>
             {/* Hạn Chót */}
             <div>
@@ -39,8 +88,21 @@ const EditTask = () => {
                 id="dueDate"
                 name="dueDate"
                 className="w-full mt-2 p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-                required
+                {...register("due_date", {
+                  required: "Không được bỏ trống form",
+                  validate: (value) => {
+                    var today = new Date();
+                    var deadline = new Date(value);
+                    return (
+                      deadline > today ||
+                      "Hạn chót phải là ngày trong tương lai"
+                    );
+                  },
+                })}
               />
+              {errors.due_date && (
+                <div style={{ color: "red" }}>{errors.due_date.message}</div>
+              )}
             </div>
             {/* Độ Ưu Tiên */}
             <div>
@@ -54,14 +116,16 @@ const EditTask = () => {
                 id="priority"
                 name="priority"
                 className="w-full mt-2 p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-                required
+                {...register("priority", {
+                  required: "Không được bỏ trống form",
+                })}
               >
-                <option value disabled selected>
+                <option value disabled>
                   Chọn độ ưu tiên
                 </option>
-                <option value="High">Cao</option>
-                <option value="Medium">Trung bình</option>
-                <option value="Low">Thấp</option>
+                <option value="Cao">Cao</option>
+                <option value="Trung bình">Trung bình</option>
+                <option value="Thấp">Thấp</option>
               </select>
             </div>
             {/* Tình Trạng */}
@@ -76,14 +140,16 @@ const EditTask = () => {
                 id="status"
                 name="status"
                 className="w-full mt-2 p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-                required
+                {...register("status", {
+                  required: "Không được bỏ trống form",
+                })}
               >
-                <option value disabled selected>
+                <option value disabled>
                   Chọn tình trạng
                 </option>
-                <option value="Incomplete">Chưa hoàn thành</option>
-                <option value="In Progress">Đang tiến hành</option>
-                <option value="Completed">Hoàn thành</option>
+                <option value="Chưa hoàn thành">Chưa hoàn thành</option>
+                <option value="Đang tiến hành">Đang tiến hành</option>
+                <option value="Hoàn thành">Hoàn thành</option>
               </select>
             </div>
             {/* Submit Button */}

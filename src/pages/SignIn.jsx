@@ -1,4 +1,25 @@
+import axios from "axios";
+import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+
 export default function SignIn() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+  const navigate = useNavigate();
+  const onValid = (data) => {
+    axios
+      .post("http://localhost:3000/login", data)
+      .then((res) => {
+        alert("Đăng nhập thành công");
+        localStorage.setItem("accessToken", res.data.accessToken);
+      })
+      .catch((errors) => {
+        console.error(errors);
+      });
+  };
   return (
     <div className="h-full bg-white">
       {/*
@@ -17,12 +38,17 @@ export default function SignIn() {
             className="mx-auto h-10 w-auto"
           />
           <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900">
-            Sign in to your account
+            Đăng nhập tài khoản
           </h2>
         </div>
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form action="#" method="POST" className="space-y-6">
+          <form
+            action="#"
+            method="POST"
+            className="space-y-6"
+            onSubmit={handleSubmit(onValid)}
+          >
             <div>
               <label
                 htmlFor="email"
@@ -37,6 +63,7 @@ export default function SignIn() {
                   type="email"
                   required
                   autoComplete="email"
+                  {...register("email")}
                   className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
                 />
               </div>
@@ -65,6 +92,7 @@ export default function SignIn() {
                   name="password"
                   type="password"
                   required
+                  {...register("password")}
                   autoComplete="current-password"
                   className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
                 />
@@ -76,7 +104,7 @@ export default function SignIn() {
                 type="submit"
                 className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
-                Sign in
+                Đăng nhập
               </button>
             </div>
           </form>

@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const HomePage = () => {
   const [tasks, setTasks] = useState([]);
@@ -13,6 +14,7 @@ const HomePage = () => {
         console.log(errors);
       });
   }, []);
+  const navigate = useNavigate();
   const handleDelete = (id) => {
     if (window.confirm("Bạn có chắc chắn muốn xóa task không"))
       axios.delete(`http://localhost:3000/tasks/${id}`).then((res) => {
@@ -46,13 +48,13 @@ const HomePage = () => {
                 </span>
               </div>
               <div className="space-x-4">
-                <button className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">
+                <button
+                  className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
+                  onClick={() => navigate(`/edit/${task.id}`)}
+                >
                   Sửa
                 </button>
-                <button
-                  className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600"
-                  onClick={() => handleDelete(task.id)}
-                >
+                <button className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600">
                   Xóa
                 </button>
               </div>

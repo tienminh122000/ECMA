@@ -2,10 +2,10 @@
   "tasks": [
     {
       "id": "2",
-      "title": "Gửi email khách hàng",
-      "due_date": "2025-03-28",
-      "priority": "Trung bình",
-      "status": "Hoàn thành"
+      "title": "Gửi email khách hàng (Kiểm tra sửa dữ liệu)",
+      "due_date": "2025-05-22",
+      "priority": "Cao",
+      "status": "Đang tiến hành"
     },
     {
       "id": "3",
@@ -16,8 +16,8 @@
     },
     {
       "id": "4",
-      "title": "Họp nhóm dự án",
-      "due_date": "2025-03-30",
+      "title": "Họp nhóm dự án 123435678",
+      "due_date": "2025-05-08",
       "priority": "Thấp",
       "status": "Chưa hoàn thành"
     },
@@ -48,6 +48,28 @@
       "due_date": "2025-04-03",
       "priority": "Cao",
       "status": "Chưa hoàn thành"
+    }
+  ],
+  "users": [
+    {
+      "email": "admin@gmail.com",
+      "password": "$2a$10$w07EDne/sv8t5pG07QCdxO1rc7txGiG/V2AY0abFQMduLbawrsomC",
+      "id": 1
+    },
+    {
+      "email": "admin1@gmail.com",
+      "password": "$2a$10$u8KI6xSrXUR0q.yOsfccH.lhE3c6f/iS5b3nVAVj1so6P7amSgB96",
+      "id": 2
+    },
+    {
+      "email": "admin3@gmail.com",
+      "password": "$2a$10$32UNOd64Ghm5b3s48qewlOXJ36GHujlU0eAv38riYuDyrPKAvTylW",
+      "id": 3
+    },
+    {
+      "email": "admin7@gmail.com",
+      "password": "$2a$10$4sJpLufizmO/YzrJuFE0C.bjPgwG5ljiKgRUaq.47.h.5aDLZ/A5.",
+      "id": 4
     }
   ]
 }

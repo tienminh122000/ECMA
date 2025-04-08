@@ -11,6 +11,7 @@ import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import Footer from "./components/Footer";
 import { Routes, Route } from "react-router-dom";
+import Protect from "./components/Protect";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -21,7 +22,14 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage></HomePage>}></Route>
         <Route path="/add" element={<AddTask></AddTask>}></Route>
-        <Route path="/edit/:id" element={<EditTask></EditTask>}></Route>
+        <Route
+          path="/edit/:id"
+          element={
+            <Protect>
+              <EditTask></EditTask>
+            </Protect>
+          }
+        ></Route>
         <Route path="*" element={<NotFoundPage></NotFoundPage>}></Route>
         <Route path="/signin" element={<SignIn></SignIn>}></Route>
         <Route path="/signup" element={<SignUp></SignUp>}></Route>
